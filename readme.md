@@ -18,19 +18,23 @@
     cd quiz-builder/backend
     docker compose up -d
     ```
+3. **Create a copy of .env-example as .env**
+     ```bash
+     mv .env-example .env
+    ```
 
-3. **To create tables, you need to have everything installed on backend and run prisma migrate**
+4. **To create tables, you need to have everything installed on backend and run prisma migrate**
      ```bash
     npm install
     npx prisma migrate dev    
     ```
 
-3. **With everyone installed and database tables create, just start the serve**
+5. **With everyone installed and database tables create, just start the serve**
      ```bash
     npm run start  
     ```
 
-4. **To initialize frontend, install everything and run**
+6. **To initialize frontend, install everything and run start**
    ```bash
    cd quiz-builder/frontend
    npm install
