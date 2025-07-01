@@ -1,0 +1,37 @@
+// schema.prisma
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Quiz {
+  id          Int       @id @default(autoincrement())
+  title       String
+  questions   Question[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Question {
+  id          Int       @id @default(autoincrement())
+  quizId      Int
+  quiz        Quiz      @relation(fields: [quizId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  type        QuestionType
+  content     String    // The content of the question, e.g., the text or description of the question
+  options     Json?   // Used for multiple choice (Checkbox type), options are stored as a JSON string
+  correctAnswers Json? // List of correct answers stored as a JSON string for checkbox questions
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+}
+
+enum QuestionType {
+  BOOLEAN   // True/False
+  INPUT     // Short text answer
+  CHECKBOX  // Multiple choice (with several correct answers)
+}
